@@ -1,0 +1,176 @@
+********************************* Abstract Class & Methods*********************************
+
+Abstract Class:- Java abstract class is a class that can not be instantiated by itself, it needs to be subclassed by another class to use its properties. 
+                 An abstract class is declared using the “abstract” keyword in its class definition.
+
+Example:- 
+    abstract class shapes 
+    {
+    int name; // can be circle, triangle, square etc;
+    // An abstract function
+    abstract void sides();
+    }
+
+Abstract classes having methods:- An abstract class is a class that cannot be instantiated , we cannot create objects of it.
+                                  It can have both abstract and non-abstract methods.
+                                  Abstract methods are methods without a body that must be implemented by the child class.
+
+Example:- 
+abstract class Animal {
+    abstract void makeSound(); // Abstract method (must be implemented by child classes)
+
+    void sleep() { // Concrete method
+        System.out.println("Sleeping");
+    }
+}
+
+class Dog extends Animal {
+    void makeSound() {
+        System.out.println("🐶 Bark!");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Dog dog = new Dog();
+        dog.makeSound(); // Output: 🐶 Bark!
+        dog.sleep(); // Output: Sleeping
+    }
+}
+
+*************************************Interfaces*************************************
+
+Interfaces :-An interface is like a blueprint for a class. It only contains abstract methods (before Java 8).
+             From Java 8 onwards, interfaces can have default and static methods.
+`implements` keyword:- A class implements an interface using the implements keyword.
+                       A class can implement multiple interfaces (Java allows multiple inheritance via interfaces).
+
+Example:- 
+interface Animal {
+    void makeSound(); // Abstract method (no body)
+}
+
+class Dog implements Animal {
+    public void makeSound() { // Must be public
+        System.out.println("🐶Bark!");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Dog dog = new Dog();
+        dog.makeSound(); // Output: 🐶Bark!
+    }
+}
+
+
+*******************************Difference between Abstract Class & Interface**************************
+
+
+Abstract classes:- Can have both abstract & concrete(non abstract) methods
+                   Can have instance variables and access modifier (private, protected, public)
+                   Can have constructors
+                   A class can extend only one abstract class no multiple inheritance allowed
+
+Interface classes:- Before Java 8: only abstract methods. Java 8+: can have default & static methods
+                    Only public, static, and final variables (constants)
+                    Methods are always public (before Java 9) 
+                    Cannot have constructors
+                    A class can implement multiple interfaces
+
+**************************************Encapsulation and Packages*************************
+
+Encapsulation :- It is defined as wraping of data and methods in a single unit called class.
+
+1. Getters & Setters (Encapsulation):-
+    Getters are to get the data as encapsulation means hiding the internal details of a class and only allowing controlled access via methods.
+
+    Setters are used to set the data of the objects.
+
+    Both are used because:-
+    To control access to variables.
+    To add validation (e.g., prevent setting negative age).
+
+Example:-
+class Person {
+    private String name; // Private variable
+
+    // Getter method
+    public String getName() {
+        return name;
+    }
+
+    // Setter method
+    public void setName(String newName) {
+        this.name = newName;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Person p = new Person();
+        p.setName("Diksha"); // Setting the name
+        System.out.println(p.getName()); // Output: Diksha
+    }
+}
+
+2. Creating and Using Java Packages (import):-
+
+A package in Java is a way to group related classes together. It helps with:-
+    Organizing code
+    Avoiding name conflicts
+    Controlling access
+-Creating a Package
+    Create a directory (folder) myPackage.
+    Create a Java file inside myPackage.
+
+
+Example:- 
+ // Declaring package name
+
+package myPackage;
+public class MyClass {
+    public void display() {
+        System.out.println("Hello from MyClass!");
+    }
+}
+
+- Using a Package
+To use the class from another file:-
+
+import myPackage.MyClass; // Importing class from package
+
+public class Main {
+    public static void main(String[] args) {
+        MyClass obj = new MyClass();
+        obj.display(); // Output: Hello from MyClass!
+    }
+}
+
+***************************************Static Keyboard****************************************
+
+3. Static Keyword
+
+The static keyword is used for:-
+Static Variables (shared among all instances)
+Static Methods (can be called without an object)
+Static Blocks (executed once when the class is loaded)
+
+Example of Static Variable & Method:-
+
+class Example {
+    static int count = 0; // Static variable
+
+    static void showCount() { // Static method
+        System.out.println("Count: " + count);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Example.count = 5; // Accessing static variable
+        Example.showCount(); // Output: Count: 5
+    }
+}
+
+
