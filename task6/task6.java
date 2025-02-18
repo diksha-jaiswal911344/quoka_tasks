@@ -21,7 +21,7 @@ class Employee {
     }
     
     void displayDetails(){
-        System.out.println("ID: " + this.id +  "\n"+ "Name: "  + this.name + "\n" +"Department: " + this.department+ "\n"  +"Salary: $"  + this.salary + "\n");
+        System.out.println("ID: " + this.id +  "\n"+ "Name: "  + this.name + "\n" +"Department: " + this.department+ "\n"  +"Salary: $"  + this.salary );
     }
 }
 
@@ -35,7 +35,7 @@ class Manager extends Employee{
     @Override
     void displayDetails(){
         super.displayDetails();
-        System.out.println(this.teamSize + "\n");
+        System.out.println("Team Size :"+ this.teamSize);
     }
 }
 
@@ -49,15 +49,13 @@ class Hr extends Employee{
 
     void displayDetails(){
         super.displayDetails();
-        System.out.println( "Recruitments Handled: " + requirementHandled + "\n");
+        System.out.println( "Recruitments Handled: " + requirementHandled );
     }
 
 }
 
 public class task6 {
-    public static void displayEmpDetails(Employee e){
-        e.displayDetails();
-    }
+    
     public static void main(String [] args){
         // Created emp objeict
         Employee emp= new Employee(101,"Alice",60000,"IT");
@@ -68,10 +66,13 @@ public class task6 {
 
         // calling display details for each object
         System.out.println("Employe Details:");
-        displayEmpDetails(emp);
+        emp.displayDetails();
+        System.out.print("\n");
         System.out.println("Manager Details:");
-        displayEmpDetails(mgr);
+        mgr.displayDetails();
+        System.out.print("\n");
         System.out.println("Hr Details:");
-        displayEmpDetails(hr);
+        hr.displayDetails();
+        System.out.print("\n");
     }
 }
