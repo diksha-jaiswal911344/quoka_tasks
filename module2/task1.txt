@@ -1,0 +1,439 @@
+***********************************************Java Collection Framework**************************************
+
+The Java Collection Framework (JCF) provides a set of pre-built classes and interfaces to store and manipulate groups of objects efficiently.
+
+Example:-Imagine we have a bag full of different types of things—some are neatly arranged in order, some are scattered, and some have labels (like name tags). The Java Collection Framework helps you manage these things efficiently.
+
+List:- The List Interface in Java extends the Collection Interface and is a part of java.util package. It is used to store the ordered collections of elements. So in a Java List, you can organize and manage the data sequentially.
+
+ArrayList :- Also known as Dynamic Array
+            Fast random access (O(1) time complexity for get(index)).
+            Slower insertions/deletions in the middle (O(n) time complexity).
+            Uses dynamic resizing when the list grows.
+
+Example:- Like a Music Playlist 🎶
+
+Code:-
+import java.util.*;
+
+public class ArrayListExample {
+    public static void main(String[] args) {
+        List<String> playlist = new ArrayList<>();
+        playlist.add("Song A");
+        playlist.add("Song B");
+        playlist.add("Song C");
+
+        System.out.println(playlist); // [Song A, Song B, Song C]
+
+        playlist.remove("Song B");
+        System.out.println(playlist); // [Song A, Song C]
+        
+        System.out.println(playlist.get(1)); // Song C
+    }
+}
+
+LinkedList (Doubly Linked List):-
+            Fast insertions & deletions (O(1) time complexity for add/remove).
+            Slower random access (O(n) time complexity for get(index)).
+
+Example:- Like a train 🚆 
+import java.util.*;
+
+public class LinkedListExample {
+    public static void main(String[] args) {
+        LinkedList<String> train = new LinkedList<>();
+        train.add("Coach 1");
+        train.add("Coach 2");
+        train.add("Coach 3");
+
+        System.out.println(train); // [Coach 1, Coach 2, Coach 3]
+
+        train.addFirst("Engine 🚂");
+        train.addLast("Guard Coach");
+
+        System.out.println(train); // [Engine 🚂, Coach 1, Coach 2, Coach 3, Guard Coach]
+    }
+}
+
+Set Interface (HashSet, TreeSet):- 
+            A Set does not allow duplicate elements.
+            Example:-Think of a Set like a guest list at a wedding 🎊. No one gets an invite twice!
+
+HashSet (Unordered, No Duplicates, Fast):- Uses hashing for fast lookup (O(1) average time complexity).
+
+Example Code:- 
+
+import java.util.*;
+
+public class HashSetExample {
+    public static void main(String[] args) {
+        Set<String> guests = new HashSet<>();
+        guests.add("Alice");
+        guests.add("Bob");
+        guests.add("Alice"); // Duplicate! Won't be added
+
+        System.out.println(guests); // Output: [Alice, Bob] (Order may vary)
+    }
+}
+
+TreeSet (Sorted Set, No Duplicates):-
+        Sorted in ascending order.
+        Slower than HashSet because it uses a balanced tree (O(log n) time complexity).
+
+Example Code:-
+
+import java.util.*;
+
+public class TreeSetExample {
+    public static void main(String[] args) {
+        Set<Integer> numbers = new TreeSet<>();
+        numbers.add(30);
+        numbers.add(10);
+        numbers.add(20);
+
+        System.out.println(numbers); // [10, 20, 30] (Sorted order)
+    }
+}
+**
+Map (Key-Value Pairs, Like a Phonebook):-
+        Example:-Imagine a Map as a dictionary 📖 where words (keys) are mapped to meanings (values).
+
+HashMap (Fast but Unordered):- Fast retrieval (O(1) time)
+                               No specific order
+
+Example code:- 
+
+import java.util.*;
+
+public class HashMapExample {
+    public static void main(String[] args) {
+        Map<Integer, String> phoneBook = new HashMap<>();
+        phoneBook.put(1, "Alice");
+        phoneBook.put(2, "Bob");
+        phoneBook.put(3, "Charlie");
+
+        System.out.println(phoneBook); // {1=Alice, 2=Bob, 3=Charlie}
+        System.out.println(phoneBook.get(2)); // Bob
+    }
+}
+
+TreeMap (Always Sorted by Key):- Slower but sorted automatically
+
+Example code:-
+
+import java.util.*;
+
+public class TreeMapExample {
+    public static void main(String[] args) {
+        TreeMap<Integer, String> students = new TreeMap<>();
+        students.put(3, "Charlie");
+        students.put(1, "Alice");
+        students.put(2, "Bob");
+
+        System.out.println(students); // {1=Alice, 2=Bob, 3=Charlie}
+    }
+}
+
+Sorting Collections (Ordering Things):- 
+                    Using Comparable (Natural Sorting)
+                    Imagine sorting students by roll number.
+Example:- Sorting is like arranging books 📚 in a library (by title, author, or year).
+
+Example code:-
+
+import java.util.*;
+
+class Student implements Comparable<Student> {
+    int id;
+    String name;
+
+    Student(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    @Override
+    public int compareTo(Student s) {
+        return this.id - s.id; // Sort by ID (Ascending)
+    }
+}
+
+public class ComparableExample {
+    public static void main(String[] args) {
+        List<Student> list = new ArrayList<>();
+        list.add(new Student(3, "Charlie"));
+        list.add(new Student(1, "Alice"));
+        list.add(new Student(2, "Bob"));
+
+        Collections.sort(list); // Sorting
+
+        for (Student s : list) {
+            System.out.println(s.id + " " + s.name);
+        }
+    }
+}
+
+Stack & Queue (LIFO & FIFO):-
+
+Stack :- (Last-In-First-Out, Like a Stack of Plates 🍽️)
+
+Example code:-
+
+import java.util.*;
+
+public class StackExample {
+    public static void main(String[] args) {
+        Stack<Integer> stack = new Stack<>();
+        stack.push(1);
+        stack.push(2);
+        stack.push(3);
+
+        System.out.println(stack.pop()); // 3 (LIFO: Last in, first out)
+    }
+}
+
+PriorityQueue :- (Sorted Queue, Like a To-Do List 📝)
+
+Example code:-
+
+import java.util.*;
+
+public class QueueExample {
+    public static void main(String[] args) {
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
+        pq.add(30);
+        pq.add(10);
+        pq.add(20);
+
+        System.out.println(pq.poll()); // 10 (Smallest element first)
+    }
+}
+
+Iterators in Java (forEach, Iterator, ListIterator):-
+
+Think of Iterators as tools that help us loop through a collection (like ArrayList, LinkedList, etc.) and process each element one by one.
+
+-> Why do we need Iterators?
+Ans:- Normal loops (for and while) work fine, but:-
+      They require indexing (which doesn’t work for Set or Map since they have no index).
+      They cannot modify elements while iterating (risk of ConcurrentModificationException).
+Iterators solve this problem by allowing safe traversal & modification.
+
+forEach Loop (Simplest & Modern):- 
+
+If you just need to read elements, use a forEach loop. It’s simple and clean.
+
+Example code :- 
+
+import java.util.*;
+
+public class ForEachExample {
+    public static void main(String[] args) {
+        List<String> names = Arrays.asList("Alice", "Bob", "Charlie");
+
+        // Using forEach loop
+        for (String name : names) {
+            System.out.println(name);
+        }
+    }
+}
+
+Iterator (Flexible, Can Remove Elements):- Iterator is an advanced version of a loop. It works on any collection (List, Set, etc.) and allows safe element removal.
+
+Example code:-
+import java.util.*;
+
+public class IteratorExample {
+    public static void main(String[] args) {
+        List<Integer> numbers = new ArrayList<>(Arrays.asList(10, 20, 30, 40));
+
+        Iterator<Integer> it = numbers.iterator(); // Creating an iterator
+
+        while (it.hasNext()) { // Loop until elements exist
+            int num = it.next();
+            System.out.println(num);
+            if (num == 20) {
+                it.remove(); // Safe removal
+            }
+        }
+
+        System.out.println("Updated List: " + numbers);
+    }
+}
+
+Output:-
+10  
+20  
+30  
+40  
+Updated List: [10, 30, 40]
+
+ListIterator (Moves Forward & Backward):- 
+            ListIterator is an advanced version of Iterator. It works only on Lists (ArrayList, LinkedList) and allows bidirectional movement (both forward & backward).
+
+Example code:-
+
+import java.util.*;
+
+public class ListIteratorExample {
+    public static void main(String[] args) {
+        List<String> cities = new ArrayList<>(Arrays.asList("Delhi", "Mumbai", "Kolkata"));
+
+        ListIterator<String> listIt = cities.listIterator();
+
+        System.out.println("Forward Direction:");
+        while (listIt.hasNext()) { // Moving forward
+            System.out.println(listIt.next());
+        }
+
+        System.out.println("Backward Direction:");
+        while (listIt.hasPrevious()) { // Moving backward
+            System.out.println(listIt.previous());
+        }
+    }
+}
+
+Output:-
+
+Forward Direction:
+Delhi  
+Mumbai  
+Kolkata  
+
+Backward Direction:
+Kolkata  
+Mumbai  
+Delhi  
+
+***************************************** Strings & Arrays ********************************************
+
+1D Array :- An array is a type of Data Structure that can store collections of elements. These elements are stored in contiguous memory locations and the it provides efficient access to each element based on the index of the array element.
+            Fixed size (Once created, can’t change size)
+            Indexed from 0 (First element at index 0, second at index 1, etc.)
+
+Example code:-
+
+public class ArrayExample {
+    public static void main(String[] args) {
+        int[] marks = {90, 85, 70, 95}; // 1D Array
+
+        System.out.println(marks[0]); // First element → 90
+        System.out.println(marks.length); // Total elements → 4
+
+        // Printing all elements using a loop
+        for (int mark : marks) {
+            System.out.print(mark + " "); // 90 85 70 95
+        }
+    }
+}
+
+2D array:- It can be defined as an array of arrays. Multidimensional arrays in Java are not stored in tabular form. Each row is independently heap allocated, making it possible to have arrays with different row sizes.
+            Contains rows & columns (Like a tic-tac-toe grid)
+            Access using matrix[row][column]
+
+Example code:-
+public class TwoDArrayExample {
+    public static void main(String[] args) {
+        int[][] matrix = { {1, 2, 3}, {4, 5, 6}, {7, 8, 9} }; // 3x3 Matrix
+
+        System.out.println(matrix[1][1]); // 5 (Row 1, Column 1)
+
+        // Printing the entire matrix
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[i].length; j++) {
+                System.out.print(matrix[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+}
+
+String Manipulation (Working with Text):- A String is like a sentence or word. Unlike arrays, Strings cannot be modified (immutable).
+
+Example code:- 
+
+public class StringExample {
+    public static void main(String[] args) {
+        String name = "Diksha Jaiswal"; // String literal
+        String anotherName = new String("Java Developer"); // Using `new`
+        
+        System.out.println(name);
+        System.out.println(anotherName);
+    }
+}
+
+StringBuilder & StringBuffer (Modifiable Strings):-
+    StringBuilder :- Faster, not thread-safe
+    StringBuffer :- Slower, but thread-safe
+
+Example:-
+
+    public class StringBuilderExample {
+    public static void main(String[] args) {
+        StringBuilder sb = new StringBuilder("Hello");
+        sb.append(" World"); // Modifies the same object
+
+        System.out.println(sb); // "Hello World"
+    }
+}
+
+** Common String Methods:- **
+
+1.Finding Length of a String
+
+Example code:-
+String word = "Hello World";
+System.out.println(word.length());
+
+2.Converting to Uppercase & Lowercase
+
+Example code:- 
+String sentence = "Java is Awesome!";
+System.out.println(sentence.toUpperCase()); // "JAVA IS AWESOME!"
+System.out.println(sentence.toLowerCase()); // "java is awesome!"
+
+3.Checking if Two Strings are Equal
+
+Example code:-
+String str1 = "Hello";
+String str2 = "hello";
+
+System.out.println(str1.equals(str2)); // false (case-sensitive)
+System.out.println(str1.equalsIgnoreCase(str2)); // true
+
+4.Extracting a Substring (Cutting a Piece)
+
+Example code:-
+String message = "Welcome to Java";
+System.out.println(message.substring(11)); // "Java"
+System.out.println(message.substring(0, 7)); // "Welcome"
+
+5.Replacing Words (Find & Replace)
+
+Example code:-
+String sentence = "I love Python";
+System.out.println(sentence.replace("Python", "Java")); // "I love Java"
+
+6.Checking if a String Contains a Word
+
+Example code:-
+String quote = "Believe in yourself!";
+System.out.println(quote.contains("yourself")); // true
+
+7.Splitting a String (Breaking it into Parts)
+
+Example:-
+Think of split() like cutting a pizza 🍕 into slices!
+
+Example code:-
+String csvData = "Apple,Banana,Cherry";
+String[] fruits = csvData.split(",");
+
+for (String fruit : fruits) {
+    System.out.println(fruit);
+}
+
+output:-
+Apple  
+Banana  
+Cherry  
