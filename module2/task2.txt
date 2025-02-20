@@ -1,0 +1,203 @@
+************************************* Process & Threads in Java ****************************************
+
+Process:- A process is an independent execution unit that has its own memory space, resources, and CPU time.
+          Each program running on your computer is a separate process.
+          A process can have multiple threads inside it.
+
+Example of a Process:-
+Running a Chrome browser and VS Code at the same time creates two processes.
+They don’t share memory and operate independently.
+
+
+Thread:- A thread is the smallest unit of execution inside a process.
+
+Threads within the same process share memory and resources.
+They run independently but can affect each other (e.g., modifying shared data).
+
+Example of Threads in a Process:- 
+A browser has multiple tabs, each running in its own thread but inside the same process.
+A video player runs one thread for playing the video and another for subtitles.
+
+Thread Creation in Java:- 
+Java provides two ways to create a thread:
+
+1. Extending the Thread class
+The easiest way to create a thread.
+We need to extend the Thread class and override the run() method.
+
+Example code:- 
+
+class MyThread extends Thread {
+    public void run() {
+        System.out.println("Thread is running...");
+    }
+}
+
+public class ThreadExample {
+    public static void main(String[] args) {
+        MyThread t1 = new MyThread(); // Create a thread
+        t1.start(); // Start the thread
+    }
+}
+
+2. Implementing the Runnable Interface (Recommended):-
+This is the preferred way because Java doesn’t support multiple inheritance.
+You need to implement Runnable and pass it to a Thread object.
+
+Example code:- 
+
+class MyRunnable implements Runnable {
+    public void run() {
+        System.out.println("Thread running using Runnable...");
+    }
+}
+
+public class RunnableExample {
+    public static void main(String[] args) {
+        Thread t1 = new Thread(new MyRunnable()); // Create a thread
+        t1.start(); // Start the thread
+    }
+}
+
+Thread Lifecycle (Different Stages of a Thread):-
+Threads don’t run instantly; they go through different states before completing execution.
+
+
+State with description is as follows:-
+1.New:-	Thread is created but not started yet.
+2.Runnable:-	Thread is ready to run but waiting for CPU.
+3.Running:-	Thread is executing.
+4.Blocked/Waiting:-	Thread is waiting for another resource or thread.
+5.Terminated:-	Thread has finished execution.
+
+Example code:- 
+
+class MyThread extends Thread {
+    public void run() {
+        System.out.println("Thread Running...");
+    }
+}
+
+public class ThreadLifecycleExample {
+    public static void main(String[] args) {
+        MyThread t1 = new MyThread();
+        System.out.println("Thread Created (New State)");
+        t1.start(); // Moves to Runnable & Running state
+        System.out.println("Thread Started (Runnable State)");
+    }
+}
+
+
+Synchronization & Locks (Handling Multiple Threads):-
+When multiple threads modify the same data simultaneously, it can lead to unexpected results (race conditions).
+To prevent this, we use synchronization.
+
+Example code:- (Without Synchronization , race condition)
+
+class Counter {
+    int count = 0;
+
+    void increment() {
+        count++; // Not synchronized
+    }
+}
+
+public class WithoutSync {
+    public static void main(String[] args) {
+        Counter c = new Counter();
+
+        Thread t1 = new Thread(() -> {
+            for (int i = 0; i < 1000; i++) c.increment();
+        });
+
+        Thread t2 = new Thread(() -> {
+            for (int i = 0; i < 1000; i++) c.increment();
+        });
+
+        t1.start();
+        t2.start();
+
+        try {
+            t1.join();
+            t2.join();
+        } catch (Exception e) {}
+
+        System.out.println("Final Count: " + c.count);
+    }
+}
+
+*Issue: The final count won’t always be 2000 because both threads modify count at the same time.
+
+With Synchronization (Correct Output)
+
+class Counter {
+    int count = 0;
+
+    synchronized void increment() { // Using synchronized method
+        count++;
+    }
+}
+
+public class WithSync {
+    public static void main(String[] args) {
+        Counter c = new Counter();
+
+        Thread t1 = new Thread(() -> {
+            for (int i = 0; i < 1000; i++) c.increment();
+        });
+
+        Thread t2 = new Thread(() -> {
+            for (int i = 0; i < 1000; i++) c.increment();
+        });
+
+        t1.start();
+        t2.start();
+
+        try {
+            t1.join();
+            t2.join();
+        } catch (Exception e) {}
+
+        System.out.println("Final Count: " + c.count);
+    }
+}
+
+Output:- Final Count: 2000
+
+Why?
+synchronized allows only one thread at a time to modify count.
+Prevents race conditions.
+
+Executors (Managing Multiple Threads Easily):-
+Instead of creating threads manually, Java provides Executors to handle thread management efficiently.
+
+Example code:-
+Using ExecutorService
+
+import java.util.concurrent.*;
+
+public class ExecutorExample {
+    public static void main(String[] args) {
+        ExecutorService executor = Executors.newFixedThreadPool(3); // Pool of 3 threads
+
+        for (int i = 1; i <= 5; i++) {
+            final int taskId = i;
+            executor.execute(() -> {
+                System.out.println("Task " + taskId + " running in " + Thread.currentThread().getName());
+            });
+        }
+
+        executor.shutdown(); // Shutdown executor
+    }
+}
+
+Output:-
+Task 1 running in pool-1-thread-1  
+Task 2 running in pool-1-thread-2  
+Task 3 running in pool-1-thread-3  
+Task 4 running in pool-1-thread-1  
+Task 5 running in pool-1-thread-2  
+
+It is used to :-
+Manages multiple threads automatically.
+Reuses thread pool to optimize performance.
