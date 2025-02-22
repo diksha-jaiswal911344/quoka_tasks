@@ -1,0 +1,109 @@
+******************************************** Functional Interfaces & Lambda*****************************
+Functional Programming with Lambda Expressions and Functional Interfaces was introduced in Java8 by Java to make code more concise and readable.
+
+Q1. What is a Functional Interface?
+Answer= A functional interface is an interface that has only one abstract method (but can have multiple default/static methodsExample of a Functional Interface:-
+
+@FunctionalInterface
+interface MyInterface {
+    void show(); // Only one abstract method
+}
+
+Key Points:-
+ A functional interface can have only one abstract method.
+ It can have default and static methods.
+ We use Lambda Expressions to implement them.
+
+Q2. What is a Lambda Expression?
+Answer= A Lambda Expression is a shorter way to write anonymous functions.
+
+Syntax of Lambda:-
+
+(parameter) -> { method body }
+
+Example: Implementing a Functional Interface with Lambda
+Without Lambda:-
+
+class MyClass implements MyInterface {
+    public void show() {
+        System.out.println("Hello, Functional Interface!");
+    }
+}
+
+public class LambdaExample {
+    public static void main(String[] args) {
+        MyClass obj = new MyClass();
+        obj.show();
+    }
+}
+
+With Lambda:-
+
+public class LambdaExample {
+    public static void main(String[] args) {
+        MyInterface obj = () -> System.out.println("Hello, Functional Interface with Lambda!");
+        obj.show();
+    }
+}
+
+Q3. Built-in Functional Interfaces in Java?
+Answer= Java provides predefined functional interfaces in the java.util.function package.
+
+1. Predicate<T> (Takes input, returns boolean)
+Used for filtering and condition checking.
+
+Example: Checking if a number is even
+
+import java.util.function.Predicate;
+
+public class PredicateExample {
+    public static void main(String[] args) {
+        Predicate<Integer> isEven = num -> num % 2 == 0;
+        System.out.println(isEven.test(10)); // true
+        System.out.println(isEven.test(15)); // false
+    }
+}
+
+2. Function<T, R> (Takes input, returns output)
+Used for transforming data.
+
+Example: Converting a number to its square
+
+import java.util.function.Function;
+
+public class FunctionExample {
+    public static void main(String[] args) {
+        Function<Integer, Integer> square = num -> num * num;
+        System.out.println(square.apply(5)); // 25
+        System.out.println(square.apply(10)); // 100
+    }
+}
+
+3. Consumer<T> (Takes input, returns nothing)
+Used for performing actions (like printing, logging).
+
+Example: Printing a message
+
+import java.util.function.Consumer;
+
+public class ConsumerExample {
+    public static void main(String[] args) {
+        Consumer<String> printMessage = message -> System.out.println("Message: " + message);
+        printMessage.accept("Hello, Java!"); // Message: Hello, Java!
+    }
+}
+
+4. Supplier<T> (Takes nothing, returns output)
+Used for providing/supplying values.
+
+Example: Generating a random number
+
+import java.util.function.Supplier;
+import java.util.Random;
+
+public class SupplierExample {
+    public static void main(String[] args) {
+        Supplier<Integer> getRandomNumber = () -> new Random().nextInt(100);
+        System.out.println(getRandomNumber.get()); // Random number
+    }
+}
