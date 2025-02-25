@@ -89,6 +89,7 @@ public class StudentGradeSystem {
             }
             
             students[i].calculateTotal();
+            students[i].calculateAverage();
             students[i].display();
             
             // Find the highest mark among all students

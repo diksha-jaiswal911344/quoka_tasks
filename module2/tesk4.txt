@@ -1,0 +1,170 @@
+****************************************Stream API in Java**************************************
+
+The Stream API in Java (introduced in Java 8) provides a functional programming approach to process collections (like Lists, Sets, and Maps) efficiently.
+
+Instead of writing complex loops, you can filter, map, sort, and group data in a more readable way.
+
+Q1. What is Stream?
+
+Answer:- A Stream is a sequence of elements that supports various operations to process data in a declarative way.
+
+Example code:- Creating a Stream
+
+import java.util.*;
+import java.util.stream.*;
+
+public class StreamExample {
+    public static void main(String[] args) {
+        List<String> names = Arrays.asList("Alice", "Bob", "Charlie");
+
+        // Creating a Stream and Printing Data
+        names.stream().forEach(System.out::println);
+    }
+}
+
+1. Filtering & Mapping:- 
+
+Filtering Data
+We use filter() to get only the elements that match a condition.
+
+Example code (Get all even numbers) :-
+
+import java.util.*;
+import java.util.stream.*;
+
+public class StreamFiltering {
+    public static void main(String[] args) {
+        List<Integer> numbers = Arrays.asList(5, 12, 8, 21, 30);
+
+        // Filter even numbers
+        List<Integer> evenNumbers = numbers.stream()
+                                           .filter(n -> n % 2 == 0)
+                                           .collect(Collectors.toList());
+
+        System.out.println(evenNumbers); // Output: [12, 8, 30]
+    }
+}
+
+Mapping Data:- 
+
+We use map() to transform elements.
+
+Example: Convert list of names to uppercase
+
+import java.util.*;
+import java.util.stream.*;
+
+public class StreamMapping {
+    public static void main(String[] args) {
+        List<String> names = Arrays.asList("alice", "bob", "charlie");
+
+        // Convert names to uppercase
+        List<String> upperCaseNames = names.stream()
+                                           .map(String::toUpperCase)
+                                           .collect(Collectors.toList());
+
+        System.out.println(upperCaseNames); // Output: [ALICE, BOB, CHARLIE]
+    }
+}
+
+2. Sorting Data:-
+
+We use sorted() to sort elements.
+
+Example: Sort a list of numbers
+
+import java.util.*;
+import java.util.stream.*;
+
+public class StreamSorting {
+    public static void main(String[] args) {
+        List<Integer> numbers = Arrays.asList(5, 12, 8, 21, 30);
+
+        // Sort numbers in ascending order
+        List<Integer> sortedNumbers = numbers.stream()
+                                             .sorted()
+                                             .collect(Collectors.toList());
+
+        System.out.println(sortedNumbers); // Output: [5, 8, 12, 21, 30]
+    }
+}
+
+Example Code:- Sort a list of names in reverse order
+
+import java.util.*;
+import java.util.stream.*;
+
+public class ReverseSorting {
+    public static void main(String[] args) {
+        List<String> names = Arrays.asList("Alice", "Bob", "Charlie");
+
+        // Sort in reverse order
+        List<String> sortedNames = names.stream()
+                                        .sorted(Comparator.reverseOrder())
+                                        .collect(Collectors.toList());
+
+        System.out.println(sortedNames); // Output: [Charlie, Bob, Alice]
+    }
+}
+
+3. Collectors & Grouping :- 
+
+Collecting Data 
+We use Collectors.toList() to store stream results in a List.
+
+Example: Collect even numbers in a list
+
+import java.util.*;
+import java.util.stream.*;
+
+public class StreamCollecting {
+    public static void main(String[] args) {
+        List<Integer> numbers = Arrays.asList(10, 15, 20, 25, 30);
+
+        List<Integer> evenNumbers = numbers.stream()
+                                           .filter(n -> n % 2 == 0)
+                                           .collect(Collectors.toList());
+
+        System.out.println(evenNumbers); // Output: [10, 20, 30]
+    }
+}
+
+Grouping Data (Collectors.groupingBy):-
+
+We use groupingBy() to group elements based on a condition.
+
+Example: Group people by age
+
+import java.util.*;
+import java.util.stream.*;
+ 
+class Person {
+    String name;
+    int age;
+
+    public Person(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+}
+
+public class StreamGrouping {
+    public static void main(String[] args) {
+        List<Person> people = Arrays.asList(
+            new Person("Alice", 25),
+            new Person("Bob", 30),
+            new Person("Charlie", 25),
+            new Person("David", 30),
+            new Person("Eve", 35)
+        );
+
+        // Group people by age
+        Map<Integer, List<Person>> groupedByAge = people.stream()
+                                                        .collect(Collectors.groupingBy(p -> p.age));
+
+        System.out.println(groupedByAge);
+    }
+}
+
+
+This will group people with the same age together.
