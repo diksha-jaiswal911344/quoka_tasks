@@ -1,4 +1,4 @@
-***********************************************Java Collection Framework**************************************
+***********************************************Java Collection Framework*************************************
 
 The Java Collection Framework (JCF) provides a set of pre-built classes and interfaces to store and manipulate groups of objects efficiently.
 
