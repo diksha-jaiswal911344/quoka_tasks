@@ -1,0 +1,185 @@
+***************************************File Handling in Java***************************************
+
+File Handling :- Java provides various classes and methods to perform file operations such as reading, writing, and handling exceptions.
+
+1. Reading & Writing Files:-
+
+Reading Files using FileReader :- FileReader is used to read character data from a file.
+
+Example Code: Read a file using FileReader
+
+import java.io.FileReader;
+import java.io.IOException;
+
+public class FileReadingExample {
+    public static void main(String[] args) {
+        try {
+            FileReader reader = new FileReader("example.txt");
+            int ch;
+            while ((ch = reader.read()) != -1) {
+                System.out.print((char) ch);  // Reading character by character
+            }
+            reader.close();
+        } catch (IOException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+}
+Reads the file character by character.
+Throws an exception if the file does not exist.
+
+Reading Files using BufferedReader:-  BufferedReader reads data more efficiently using buffers.
+
+Example Code: Read a file using BufferedReader
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
+public class BufferedReaderExample {
+    public static void main(String[] args) {
+        try {
+            BufferedReader br = new BufferedReader(new FileReader("example.txt"));
+            String line;
+            while ((line = br.readLine()) != null) {
+                System.out.println(line);  // Reading line by line
+            }
+            br.close();
+        } catch (IOException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+}
+Reads line by line, which is faster than FileReader.
+
+Writing Files using FileWriter:- FileWriter is used to write character data to a file.
+
+Example Code: Write data to a file using FileWriter
+
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class FileWritingExample {
+    public static void main(String[] args) {
+        try {
+            FileWriter writer = new FileWriter("output.txt");
+            writer.write("Hello, Java File Handling!\n");
+            writer.write("Writing to files is easy.");
+            writer.close();
+            System.out.println("Data written successfully.");
+        } catch (IOException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+}
+
+2. Handling Exceptions:- 
+
+FileNotFoundException & IOException: 
+FileNotFoundException -> Thrown when a file is missing.
+IOException -> Thrown when there is an I/O operation failure.
+
+Example Code: Handling Exceptions Properly
+
+import java.io.*;
+
+public class ExceptionHandlingExample {
+    public static void main(String[] args) {
+        try {
+            BufferedReader br = new BufferedReader(new FileReader("missingfile.txt"));
+            System.out.println(br.readLine());
+            br.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found!");  // Specific exception
+        } catch (IOException e) {
+            System.out.println("An error occurred while reading the file.");
+        }
+    }
+}
+
+Catches missing file errors separately.
+Handles other I/O issues properly.
+
+Design Patterns in Java:- Design patterns provide reusable solutions to common problems. Let's explore Singleton and Factory patterns.
+
+1. Singleton Pattern:- Ensures that a class has only one instance throughout the application.
+
+Example Code: Implementing Singleton
+
+class Singleton {
+    private static Singleton instance;
+
+    private Singleton() {}  // Private constructor
+
+    public static Singleton getInstance() {
+        if (instance == null) {
+            instance = new Singleton();
+        }
+        return instance;
+    }
+
+    public void showMessage() {
+        System.out.println("Singleton Instance Accessed!");
+    }
+}
+
+public class SingletonExample {
+    public static void main(String[] args) {
+        Singleton obj1 = Singleton.getInstance();
+        Singleton obj2 = Singleton.getInstance();
+
+        obj1.showMessage();
+        System.out.println(obj1 == obj2);  // Output: true (Same instance)
+    }
+}
+
+Ensures only one instance is created.
+Useful for managing shared resources (e.g., database connections, configuration settings).
+
+2.  Factory Pattern:- Creates objects without exposing the creation logic.
+
+Example Code: Factory Pattern Implementation
+
+// Step 1: Define an interface
+interface Vehicle {
+    void drive();
+}
+
+// Step 2: Create concrete classes
+class Car implements Vehicle {
+    public void drive() {
+        System.out.println("Car is driving...");
+    }
+}
+
+class Bike implements Vehicle {
+    public void drive() {
+        System.out.println("Bike is driving...");
+    }
+}
+
+// Step 3: Create a Factory Class
+class VehicleFactory {
+    public static Vehicle getVehicle(String type) {
+        if (type.equalsIgnoreCase("car")) {
+            return new Car();
+        } else if (type.equalsIgnoreCase("bike")) {
+            return new Bike();
+        }
+        return null;
+    }
+}
+
+// Step 4: Use Factory in the Main Class
+public class FactoryPatternExample {
+    public static void main(String[] args) {
+        Vehicle car = VehicleFactory.getVehicle("car");
+        car.drive(); // Output: Car is driving...
+
+        Vehicle bike = VehicleFactory.getVehicle("bike");
+        bike.drive(); // Output: Bike is driving...
+    }
+}
+
+Encapsulates object creation.
+Makes the system more flexible and scalable.
