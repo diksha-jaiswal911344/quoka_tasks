@@ -1,0 +1,188 @@
+**********************************************Spring Boot Framework****************************************
+
+Spring Boot is a framework built on top of the Spring Framework that simplifies the development of Java-based applications. It eliminates the need for extensive configuration and enables rapid application development with features like embedded servers, auto-configuration, and production-ready defaults.
+
+What is Spring and Why Use It?
+Spring is a powerful framework that provides a comprehensive programming and configuration model for modern Java applications. It simplifies Java enterprise application development by offering features like Dependency Injection (DI), Inversion of Control (IoC), and built-in support for database access, transaction management, security, and more.
+
+Why Use Spring?
+Simplifies Java Development :– Provides reusable components and configurations.
+Loose Coupling :– Uses Dependency Injection to make components independent.
+Scalability :– Suitable for large-scale enterprise applications.
+Modular Architecture :– Supports a variety of modules for web applications, data access, security, etc.
+Integration with Other Technologies :– Easily integrates with databases, messaging systems, and third-party libraries.
+
+**************************************Core Principles of Spring****************************************
+1. Dependency Injection (DI): Instead of creating objects manually, Spring injects dependencies automatically.
+                              Reduces tight coupling and enhances testability.
+
+Example code:-
+Without DI (Tightly Coupled Code):
+
+class Engine {
+    void start() {
+        System.out.println("Engine started!");
+    }
+}
+
+class Car {
+    private Engine engine = new Engine();  // Car is responsible for creating Engine
+
+    void drive() {
+        engine.start();
+        System.out.println("Car is moving...");
+    }
+}
+
+Here, Car is creating an instance of Engine itself.
+If we want to change the Engine type, we need to modify the Car class.
+
+With DI (Loosely Coupled Code):
+
+import org.springframework.stereotype.Component;
+
+@Component
+class Engine {
+    void start() {
+        System.out.println("Engine started!");
+    }
+}
+
+@Component
+class Car {
+    private Engine engine;
+
+    public Car(Engine engine) {  // Dependency is injected
+        this.engine = engine;
+    }
+
+    void drive() {
+        engine.start();
+        System.out.println("Car is moving...");
+    }
+}
+Here, Car does not create an Engine object.
+Spring automatically injects an Engine when needed.
+This makes our code flexible and easy to modify.
+
+2. Inversion of Control (IoC):- IoC means Spring manages the creation of objects, instead of developers manually doing it.
+                                Achieved using DI and Spring Beans.
+
+Example Without IoC (Manual Object Creation):-
+
+public class Main {
+    public static void main(String[] args) {
+        Car car = new Car(new Engine());  // We manually create objects
+        car.drive();
+    }
+}
+
+Example With IoC (Spring-Managed Objects):-
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+public class Main {
+    public static void main(String[] args) {
+        ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
+        Car car = context.getBean(Car.class);  // Spring creates and manages objects
+        car.drive();
+    }
+}
+
+Here, Spring controls object creation instead of us manually doing it.
+
+*********************************************Spring Annotations**********************************
+
+Spring provides annotations to reduce XML configuration.
+
+1. @SpringBootApplication:- This annotation is used on the main class of a Spring Boot application.
+    
+    The @SpringBootApplication annotation is a meta-annotation in Spring Boot that combines three important annotations:
+    @SpringBootApplication = @Configuration + @EnableAutoConfiguration + @ComponentScan
+
+    1. @Configuration:- Marks the class as a configuration class, meaning it can define Spring Beans using @Bean.
+    2. @EnableAutoConfiguration:- Enables Spring Boot's auto-configuration feature.
+        Example:
+                If spring-boot-starter-web is present, it automatically configures:
+                An embedded Tomcat server.
+                A Spring MVC DispatcherServlet.
+                Default Jackson JSON support.
+    3. @ComponentScan:- Automatically scans the package where the main class is located and registers all Spring Beans (@Component, @Service, @Repository, @Controller).
+
+2. @Component:- Marks a class as a Spring-managed component (bean).
+
+Example code:-
+@Component
+public class Engine {
+    public void start() {
+        System.out.println("Engine started");
+    }
+}
+
+3. @Autowired:- Automatically injects dependencies.
+                It is used we want to inject one spring bean to some other bean.
+
+Example code:- 
+ (Without @Autowired)
+
+ class Car {
+    Engine engine = new Engine();  // Tight Coupling (Galat Approach)
+}
+
+
+Example (With @Autowired - Loose Coupling):- 
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+@Component
+class Engine {
+    public Engine() {
+        System.out.println("Engine Created!");
+    }
+}
+
+@Component
+class Car {
+    private Engine engine;
+
+    @Autowired  // Spring automatically Engine inject karega
+    public Car(Engine engine) {
+        this.engine = engine;
+    }
+}
+
+
+************************************Understanding Spring Boot Auto-Configuration************************
+Spring Boot automatically configures the application based on dependencies.
+
+How Auto-Configuration Works?
+If we add Spring Web, it automatically configures Tomcat and Spring MVC.
+If we add Spring Data JPA, it configures a database connection.
+We don’t need to manually set up configurations.
+Auto-Configuration allows applications to run with minimal setup.
+
+Example: Auto-Configured Web Application
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@SpringBootApplication
+public class MyApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(MyApplication.class, args);
+    }
+}
+
+@RestController
+@RequestMapping("/api") // base URL for this controller
+class HelloController {
+    @GetMapping("/hello") // handles GET request at /api/hello
+    public String sayHello() {
+        return "Hello, Spring Boot!";
+    }
+}
