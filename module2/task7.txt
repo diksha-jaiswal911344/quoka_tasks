@@ -12,7 +12,7 @@ Scalability :– Suitable for large-scale enterprise applications.
 Modular Architecture :– Supports a variety of modules for web applications, data access, security, etc.
 Integration with Other Technologies :– Easily integrates with databases, messaging systems, and third-party libraries.
 
-**************************************Core Principles of Spring****************************************
+***************************************Core Principles of Spring****************************************
 1. Dependency Injection (DI): Instead of creating objects manually, Spring injects dependencies automatically.
                               Reduces tight coupling and enhances testability.
 
