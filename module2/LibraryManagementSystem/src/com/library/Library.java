@@ -33,8 +33,11 @@ public class Library {
 
     // Search for books by title
     public void searchBook(String title) {
+        if (books.isEmpty()) {
+            loadFromFile();
+        }
         List<Book> foundBooks = books.stream()
-                .filter(book -> book.getTitle().equalsIgnoreCase(title))
+                .filter(book -> book.getTitle().equalsIgnoreCase(title.trim()))
                 .collect(Collectors.toList());
 
         if (foundBooks.isEmpty()) {
@@ -68,15 +71,34 @@ public class Library {
         System.out.println("Invalid return. Book is not borrowed.");
     }
 
+//    public void saveToFile() {
+//        try (PrintWriter writer = new PrintWriter(new FileWriter("library.txt", true))) {
+//            for (Book book : books) {
+//                writer.println(book.getTitle() + "," + book.getAuthor() + "," + book.getIsbn() + "," + book.isBorrowed());
+//            }
+//            System.out.println("Library data saved to file.");
+//        } catch (IOException e) {
+//            System.out.println("Error saving file: " + e.getMessage());
+//        }
+//    }
+
     public void saveToFile() {
-        try (PrintWriter writer = new PrintWriter(new FileWriter("library.txt"))) {
-            for (Book book : books) {
-                writer.println(book.getTitle() + "," + book.getAuthor() + "," + book.getIsbn() + "," + book.isBorrowed());
-            }
-            System.out.println("Library data saved to file.");
+        if (books.isEmpty()) {
+            System.out.println("No books to save.");
+            return;
+        }
+        try (PrintWriter writer = new PrintWriter(new FileWriter("library.txt", true))) { // true enables append mode
+            Book lastBook = books.get(books.size() - 1); // Get the last added book
+            writer.println(lastBook.getTitle() + "," + lastBook.getAuthor() + "," + lastBook.getIsbn() + "," + lastBook.isBorrowed());
+            System.out.println("New book added to file.");
         } catch (IOException e) {
             System.out.println("Error saving file: " + e.getMessage());
         }
+    }
+
+    @Override
+    public String toString() {
+        return super.toString();
     }
 
     public void loadFromFile() {
@@ -86,6 +108,7 @@ public class Library {
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(",");
                 if (parts.length == 4) {  // Ensure correct format
+                    System.out.println(parts);
                     Book book = new Book(parts[0], parts[1], parts[2]);
                     if (Boolean.parseBoolean(parts[3])) {
                         book.borrowBook();

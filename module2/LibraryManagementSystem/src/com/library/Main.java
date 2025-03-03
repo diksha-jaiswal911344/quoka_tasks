@@ -7,8 +7,8 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         // adding sample books
-        library.addBook(new Book("Java Programming", "Rock Paper", "1234"));
-        library.addBook(new Book("Data Structures", "Scissor Water", "5678"));
+//        library.addBook(new Book("Java Programming", "Rock Paper", "1234"));
+//        library.addBook(new Book("Data Structures", "Scissor Water", "5678"));
 
         while (true) {
             System.out.println("\nLibrary Management System");
