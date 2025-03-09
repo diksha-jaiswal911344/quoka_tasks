@@ -1,0 +1,58 @@
+1. SELECT Queries (Retrieving Data)
+    The SELECT statement is used to fetch data from a table.
+
+    Basic Syntax:-
+    SELECT column1, column2 FROM table_name;
+
+    This retrieves specific columns from the table.
+
+    If we want all columns, use *:
+
+    SELECT * FROM employees;
+
+   Adding Conditions (WHERE Clause):-
+    To filter data based on conditions:
+    SELECT * FROM employees WHERE age > 30;
+
+    Comparison Operators: =, !=, >, <, >=, <=
+    Logical Operators: AND, OR, NOT
+
+    Example:-
+    SELECT * FROM employees WHERE age > 30 AND department = 'HR';
+
+   Pattern Matching: LIKE (for partial matches):-
+    SELECT * FROM employees WHERE name LIKE 'A%';  -- Starts with 'A'
+    SELECT * FROM employees WHERE name LIKE '%son';  -- Ends with 'son'
+
+2. Table Joins (Combining Data from Multiple Tables)
+    Sometimes, data is stored in different tables, and we need to combine them. Joins help with that.
+
+    Types of Joins
+    Join Type	Description
+    INNER JOIN	Returns matching rows from both tables.
+    LEFT JOIN	Returns all rows from the left table + matching rows from the right table.
+    RIGHT JOIN	Returns all rows from the right table + matching rows from the left table.
+    FULL JOIN	Returns all rows when there is a match in either table.
+
+    Example (INNER JOIN):-
+    Joining employees and departments to get employee names with department names:
+
+    SELECT employees.name, departments.dept_name 
+    FROM employees
+    INNER JOIN departments ON employees.dept_id = departments.dept_id;
+
+3. Query Conditions & Filtering
+    Sorting Results (ORDER BY):-
+    SELECT * FROM employees ORDER BY age DESC;  -- Sort by age in descending order
+
+    Limiting Results (LIMIT):-
+    SELECT * FROM employees LIMIT 5;  -- Get top 5 records
+
+    Grouping Data (GROUP BY):-
+    SELECT department, COUNT(*) FROM employees GROUP BY department;
+
+    Filtering Groups (HAVING):-
+
+    SELECT department, COUNT(*) FROM employees 
+    GROUP BY department 
+    HAVING COUNT(*) > 5;  -- Only departments with more than 5 employees
