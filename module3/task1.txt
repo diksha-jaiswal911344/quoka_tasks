@@ -1,0 +1,77 @@
+1. Client-Server Architecture
+   Client-Server architecture is a model in which a client requests resources or services from a server.
+
+    Client: A device or application (e.g., web browser, mobile app) that initiates a request.
+    Server: A machine or application that processes the request and sends a response.
+    
+    Example of Client-Server Interaction:-
+    When we open a browser and type https://google.com.
+    Our browser (client) sends a request to Google’s server.
+    Google’s server processes the request and sends back a response (the webpage).
+    Our browser displays the response.
+
+    Key Components:-
+    Frontend (Client Side): UI the user interacts with (e.g., React, Angular).
+    Backend (Server Side): Handles business logic, databases (e.g., Node.js, Java Spring Boot).
+    Database: Stores data persistently (e.g., MySQL, MongoDB).
+
+    Common Client-Server Models:-
+    Two-Tier Architecture:
+    Example: Web browser (client) ↔ Web server (server).
+    Three-Tier Architecture:
+    Example: Client ↔ Backend Server ↔ Database.
+
+2. Requests & Responses
+    Client and server communicate using HTTP (HyperText Transfer Protocol).
+
+    Request: The client asks the server for something.
+    Response: The server replies with the requested data or an error message.
+    
+    Example of HTTP Request (GET Request):-
+    GET /users HTTP/1.1
+    Host: example.com
+
+    Example of HTTP Response:-
+    {
+    "status": 200,
+    "message": "OK",
+    "data": [
+        {"id": 1, "name": "Alice"},
+        {"id": 2, "name": "Bob"}
+    ]
+    }
+
+    Request Components:-
+    Method: GET, POST, PUT, DELETE
+    Headers: Metadata (e.g., Content-Type: application/json)
+    Body: Data sent in POST, PUT requests
+
+    Response Components:-
+    Status Code: 200 OK, 404 Not Found, 500 Internal Server Error
+    Body: Actual data in JSON or XML format
+
+3. Introduction to APIs (Application Programming Interfaces)
+    APIs allow communication between different software applications.
+
+    Types of APIs:-
+    REST API (Representational State Transfer)
+    Uses HTTP methods (GET, POST, PUT, DELETE).
+    
+    Example: https://api.example.com/users
+    SOAP API (Simple Object Access Protocol):-
+    Uses XML-based messaging.
+    
+    GraphQL API:-
+    Allows clients to request specific data fields.
+    
+    Data Transfer Methods:-
+    JSON: { "name": "Diksha", "age": 22 }
+    XML: <user><name>Diksha</name><age>22</age></user>
+    
+    Security Concepts:-
+    Authentication: Verifying identity (JWT, OAuth, API Keys).
+    Authorization: Checking permissions (role-based access).
+    
+    Stateless vs. Stateful:-
+    Stateless: Each request is independent (REST APIs).
+    Stateful: Server maintains session (e.g., login sessions in banking apps).
