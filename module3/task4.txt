@@ -1,0 +1,78 @@
+ 1. Creating Sample Tables
+    We'll use two tables employees and departments
+
+    SQL Queries to Create Tables
+
+    CREATE TABLE employees (
+    id INT PRIMARY KEY,
+    name VARCHAR(50),
+    age INT,
+    salary DECIMAL(10,2),
+    dept_id INT
+    );
+
+    CREATE TABLE departments (
+        dept_id INT PRIMARY KEY,
+        dept_name VARCHAR(50)
+    );
+
+    Insert Data
+
+    INSERT INTO employees (id, name, age, salary, dept_id) VALUES
+    (1, 'Alice', 30, 50000, 10),
+    (2, 'Bob', 35, 60000, 20),
+    (3, 'Charlie', 28, 55000, 10),
+    (4, 'David', 40, 70000, 30),
+    (5, 'Eva', 32, 65000, 20);
+
+    INSERT INTO departments (dept_id, dept_name) VALUES
+    (10, 'HR'),
+    (20, 'IT'),
+    (30, 'Finance');
+
+2. Basic SELECT Queries;-
+    Retrieve All Employees
+    SELECT * FROM employees;
+
+    Retrieve Specific Columns
+    SELECT name, salary FROM employees;
+
+    Filter Employees by Age (WHERE Clause)
+    SELECT * FROM employees WHERE age > 30;
+
+3. JOINs with WHERE Clause:-
+   INNER JOIN (Retrieve Employee & Department):-
+   SELECT employees.name, employees.salary, departments.dept_name
+   FROM employees
+   INNER JOIN departments ON employees.dept_id = departments.dept_id;
+
+   INNER JOIN with WHERE Clause (Find Employees in IT Department):-
+   SELECT employees.name, departments.dept_name
+   FROM employees
+   INNER JOIN departments ON employees.dept_id = departments.dept_id
+   WHERE departments.dept_name = 'IT';
+
+4. Other Joins:-
+
+   LEFT JOIN (Include Employees Without Departments)
+    SELECT employees.name, departments.dept_name
+    FROM employees
+    LEFT JOIN departments ON employees.dept_id = departments.dept_id;
+
+   RIGHT JOIN (Include Departments Without Employees)
+    SELECT employees.name, departments.dept_name
+    FROM employees
+    RIGHT JOIN departments ON employees.dept_id = departments.dept_id;
+
+5. More Practice Queries:-
+   Find Employees Above 30 Who Work in HR
+    SELECT employees.name, employees.age, departments.dept_name
+    FROM employees
+    INNER JOIN departments ON employees.dept_id = departments.dept_id
+    WHERE employees.age > 30 AND departments.dept_name = 'HR';
+
+   Find the Average Salary of Each Department
+    SELECT departments.dept_name, AVG(employees.salary) AS avg_salary
+    FROM employees
+    INNER JOIN departments ON employees.dept_id = departments.dept_id
+    GROUP BY departments.dept_name;
