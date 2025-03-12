@@ -1,0 +1,163 @@
+***************************************MySQL Intermediate Challenge 1*********************************
+
+Problem Statement
+Julia asked her students to create some coding challenges. Write a query to print the hacker_id, name, and the total number of challenges created by each student. Sort your results by the total number of challenges in descending order. If more than one student created the same number of challenges, then sort the result by hacker_id. If more than one student created the same number of challenges and the count is less than the maximum number of challenges created, then exclude those students from the result.
+
+Hacker table query:-
+
+Table creation:
+
+CREATE TABLE hackers (
+    hacker_id INTEGER PRIMARY KEY,
+    name VARCHAR(255) NOT NULL
+);
+
+Inserting data in table "hackers":-
+
+INSERT INTO hackers (hacker_id, name) VALUES
+(5077, 'Rose'),
+(21283, 'Angela'),
+(62743, 'Frank'),
+(88255, 'Patrick'),
+(96196, 'Lisa');
+
+Challenges table:-
+
+table creation query:-
+
+CREATE TABLE challenges (
+    challenge_id INTEGER PRIMARY KEY,
+    hacker_id INTEGER,
+    FOREIGN KEY (hacker_id) REFERENCES hackers(hacker_id)
+);
+
+data insertion in challenges table:-
+
+INSERT INTO challenges (challenge_id, hacker_id) VALUES
+(61654, 5077),
+(58302, 21283),
+(40587, 88255),
+(29477, 5077),
+(1220, 21283),
+(69514, 21283),
+(46561, 62743),
+(58077, 62743),
+(18483, 88255),
+(76766, 21283),
+(52382, 5077),
+(74467, 21283),
+(33625, 96196),
+(26053, 88255),
+(42665, 62743),
+(12859, 62743),
+(70094, 21283),
+(34599, 88255),
+(54680, 88255),
+(61881, 5077);
+
+Final Query:-
+WITH ChallengeCount AS (
+    SELECT 
+        hackers.hacker_id, 
+        hackers.name, 
+        COUNT(challenges.challenge_id) AS challenge_count
+    FROM hackers 
+    LEFT JOIN challenges ON hackers.hacker_id = challenges.hacker_id
+    GROUP BY hackers.hacker_id
+)
+SELECT hacker_id, name, challenge_count
+FROM ChallengeCount
+WHERE challenge_count = (SELECT MAX(challenge_count) FROM ChallengeCount)
+   OR challenge_count IN (
+       SELECT challenge_count 
+       FROM ChallengeCount 
+       GROUP BY challenge_count 
+       HAVING COUNT(*) = 1
+   )
+ORDER BY challenge_count DESC, hacker_id;
+
+**************************************SQL Intermediate Challenge 2********************************
+
+Problem Statement
+You are given a table, Functions, containing two columns: X and Y.
+Two pairs (X1, Y1) and (X2, Y2) are said to be symmetric pairs if X1 = Y2 and X2 = Y1.
+Write a query to output all such symmetric pairs in ascending order by the value of X. List the rows such that X1 ≤ Y1.
+
+Table named "funct" creation :-
+
+CREATE TABLE funct (
+    X INTEGER,
+    Y INTEGER
+);
+
+SQL query to insert the given values into the Functions table:-
+
+INSERT INTO funct (X, Y) VALUES
+(20, 20),
+(20, 20),
+(20, 21),
+(23, 22),
+(22, 23),
+(21, 20);
+
+
+Query to show the desired output :-
+
+SELECT DISTINCT f1.X AS X1, f1.Y as Y1 FROM funct f1 JOIN funct f2 ON f1.X=f2.Y AND f1.Y = f2.X
+WHERE f1.X<=f1.Y ORDER BY f1.X; 
+
+*************************************SQL Intermediate Challenge 3**************************************
+
+Problem statement
+You are given three tables: Students, Friends and Packages. Students contains two columns: ID and Name. Friends contains two columns: ID and Friend_ID (ID of the ONLY best friend). Packages contains two columns: ID and Salary (offered salary in $ thousands per month).
+
+Write a query to output the names of those students whose best friends got offered a higher salary than them. Names must be ordered by the salary amount offered to the best friends. It is guaranteed that no two students got same salary offer.
+
+Query for creating the three tables:-
+
+CREATE TABLE students (
+id INT PRIMARY KEY ,
+name VARCHAR(20) NOT NULL
+);
+
+CREATE TABLE friends (
+id INT PRIMARY KEY ,
+friend_id INTEGER
+);
+
+CREATE TABLE packages (
+id INT PRIMARY KEY ,
+salary FLOAT
+);
+
+Query for inserting the values:-
+
+INSERT INTO friends (id, friend_id) VALUES
+(1, 2),
+(2, 3),
+(3, 4),
+(4, 1);
+
+
+INSERT INTO students (id, name) VALUES
+(1, 'Ashley'),
+(2, 'Samantha'),
+(3, 'Julia'),
+(4, 'Scarlet');
+
+
+INSERT INTO Packages (id, salary) VALUES
+(1, 15.20),
+(2, 10.06),
+(3, 11.55),
+(4, 12.12);
+
+Final query for the output is as below:-
+
+SELECT S.Name 
+FROM Students S
+JOIN Friends F ON S.ID = F.ID
+JOIN Packages P1 ON S.ID = P1.ID
+JOIN Packages P2 ON F.Friend_ID = P2.ID
+WHERE P2.Salary > P1.Salary
+ORDER BY P2.Salary;
