@@ -1,0 +1,109 @@
+***************Tak1:List down apis required to create a blog application as detailed here******************
+
+1. API Name:- Register User
+    API: /api/auth/register
+    Method: POST
+    Request JSON: {name,email,password,role}
+
+2. API Name: Login User
+    API: /api/auth/login
+    Method: POST
+    Request JSON: {email,password}
+
+3. API Name: Logout User
+    API: /api/auth/logout
+    Method: POST
+    Request JSON:{}
+    Response JSON:
+    {message}
+
+4. API Name: Create Category (Author Only)
+    API: /api/categories
+    Method: POST
+    Request JSON:{name}
+
+
+5. API Name: Get All Categories
+    API: /api/categories
+    Method: GET
+    Response JSON:
+    {
+      "categories": [
+        {categoryId,name},
+        {categoryId,name},
+      ]
+    }
+
+6. API Name: Create Post (Author Only)
+    API: /api/posts
+    Method: POST
+    Request JSON: {title,content,bannerImage,categoryId,status}
+
+7. API Name: Update Post (Author Only)
+    API: /api/posts/:postId
+    Method: PUT
+    Request JSON: {title,content,bannerImage}
+
+8. API Name: Delete Post (Author Only)
+    API: /api/posts/:postId
+    Method: DELETE
+    Response JSON: {message}
+
+9. API Name: Publish/Unpublish Post (Author Only)
+    API: /api/posts/:postId/status
+    Method: PATCH
+    Request JSON: {status}
+
+10. API Name: Get All Published Posts
+    API: /api/posts
+    Method: GET
+    Response JSON:
+    {
+
+      "posts": [
+
+        {postId,title,bannerImage,author,category,likes},
+            {postId,title,bannerImage,author,category,likes}
+          ]
+        }
+
+11. API Name: Get Single Post
+    API: /api/posts/:postId
+    Method: GET
+    Response JSON: {postId,title,content,bannerImage,author,category,status,likes,comments}
+
+12. API Name:- Like a Post (Authenticated Users)
+    API: /api/posts/:postId/like
+    Method: POST
+    Response JSON: {message}
+
+
+13. API Name:- Unlike a Post (Authenticated Users)
+    API: /api/posts/:postId/like
+    Method: DELETE
+    Response JSON: {message}
+
+14. API Name:- Add Comment (Authenticated Users)
+    API: /api/posts/:postId/comments
+    Method: POST
+    Request JSON: {content}
+
+15. API Name: Get Comments on a Post
+    API: /api/posts/:postId/comments
+    Method: GET
+    Response JSON:
+    {
+      "comments": [
+        {commentId,user,content}
+      ]
+    }
+
+17. API Name: Subscribe to an Author
+    API: /api/authors/:authorId/subscribe
+    Method: POST
+    Response JSON: {message}
+
+18. API Name: Unsubscribe from an Author
+    API: /api/authors/:authorId/subscribe
+    Method: DELETE
+    Response JSON: {message}
