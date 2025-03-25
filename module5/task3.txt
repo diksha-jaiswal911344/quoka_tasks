@@ -1,0 +1,54 @@
+**************************************** base architecture of the application **************************
+
+blog-application/
+ src/
+    main/
+         java/com/blog/blog-application/
+                BlogApplication.java                           // main spring boot application
+                config/
+                       SecurityConfig.java                        // spring security + JWT config
+                controllers/
+                       UserController.java                        // handles User APIs
+                       PostController.java                        // handles Post APIs
+                       CommentController.java                     // handles Comment APIs
+                       LikeController.java                        // handles Like APIs
+                       CategoriesController.java                  // handles Categories APIs
+                       SubscriptionController.java                // handles Subscription APIs
+                entities/
+                       User.java                               // User Entity
+                       Role.java                               // Role Entity
+                       Post.java                               // Post Entity
+                       Comment.java                            // Comment Entity
+                       Like.java                               // Like Entity
+                       Category.java                           // Category Entity
+                       Subscription.java                       // Author Subscription Entity
+                repositories/
+                       UserRepository.java                     //  User CRUD Operations
+                       RoleRepository.java                     //  Role Fetching
+                       PostRepository.java                     //  Post Queries
+                       CommentRepository.java                  //  Comment Queries
+                       LikeRepository.java                     //  Like Queries
+                       CategoryRepository.java                 //  Category Queries
+                       SubscriptionRepository.java             //  Subscription Queries
+                services/
+                       UserService.java                        // handles Business Logic for Users
+                       PostService.java                        // handles Business Logic for Posts
+                       CommentService.java                     // handles Comments
+                       LikeService.java                        // handles Likes
+                       CategoryService.java                    // handles Categories
+                       SubscriptionService.java                // handles Author Requests
+                dtos/
+                     UserDto.java                             // Data Transfer Object for Users
+                     PostDto.java                             // DTO for Posts
+                     CommentDto.java                          // DTO for Comments
+                     LikeDto.java                             // DTO for Likes
+                     CategoryDto.java                         // DTO for Categories
+                     SubscriptionDto.java                     // DTO for Author Subscription
+                exceptions/
+                     ResourceNotFoundException.java           // Handles Entity Not Found
+                     CustomExceptionHandler.java              // Global Exception Handling
+                utils/
+                     JwtUtil.java                             // Handles JWT Token Generation
+    resources/
+        application.properties                                // Database & Security Configurations
+  pom.xml                                                       // Maven Dependencies
