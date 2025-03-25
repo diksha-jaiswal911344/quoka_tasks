@@ -45,10 +45,10 @@ blog-application/
                      CategoryDto.java                         // DTO for Categories
                      SubscriptionDto.java                     // DTO for Author Subscription
                 exceptions/
-                     ResourceNotFoundException.java           // Handles Entity Not Found
-                     CustomExceptionHandler.java              // Global Exception Handling
+                     ResourceNotFoundException.java           // handles entity not found
+                     CustomExceptionHandler.java              // global exception handling
                 utils/
-                     JwtUtil.java                             // Handles JWT Token Generation
+                     JwtUtil.java                             // handles JWT token generation
     resources/
         application.properties                                // Database & Security Configurations
   pom.xml                                                       // Maven Dependencies
